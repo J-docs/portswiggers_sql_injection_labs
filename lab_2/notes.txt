@@ -1,0 +1,8 @@
+Vulnerability in Login Function
+
+Analysis:
+--------------------------
+
+select firstname from users where username='admin' and password='admin'
+
+select firstname from users where username='administrator'--'

